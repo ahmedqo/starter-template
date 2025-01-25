@@ -364,9 +364,12 @@ const Neo = (function Neo() {
                             const index = target[i].nodeValue.replace(/\s\s+|\n|\r\n/g, '');
                             const isElement = Parser.join.test(index) && this.props[+index.match(Parser.nbr)];
                             if (isElement) {
+                                if (isElement instanceof Neo.Sketch) {
+                                    fiber.props.children.push(...isElement.exec());
+                                    return;
+                                }
                                 const _fiber = new Fiber(isElement, { children: [] });
                                 fiber.props.children.push(_fiber);
-                                //this.attrs(isElement, _fiber);
                                 this.tree(isElement, fiber.props.children[fiber.props.children.length - 1]);
                             } else {
                                 fiber.props.children.push(new Fiber(NEO_TEXT_SYMBOL, { nodeValue: index }));
@@ -528,7 +531,6 @@ const Neo = (function Neo() {
             }
 
             static trans = function trans(text, context = {}) {
-                if (typeof text !== "string") return text;
                 var dict = Neo.Locales[context["#locale"] || document.documentElement.lang || "en"];
                 return ((dict && dict[text]) || text).replace(/#([\w\d._-]+)/g, (full, key) => context[key] || full);
             }

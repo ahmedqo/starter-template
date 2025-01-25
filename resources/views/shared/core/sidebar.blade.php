@@ -1,10 +1,10 @@
-<neo-sidebar id="sidebar">
-    <neo-topbar transparent align="start" class="border-b border-b-x-black/10 h-14 borer-b border-b-x-black" style="height: 3.5rem">
+<neo-sidebar id="sidebar" stick>
+    <neo-topbar transparent align="start" style="height: 3.5rem" class="shadow px-4">
         <img src="{{ Neo::logo() }}" alt="{{ env('APP_NAME') }} logo image"
             class="block w-auto h-full pointer-events-auto" width="916" height="516" loading="lazy" />
         <h1 class="text-2xl font-x-huge text-x-black">{{ strtoupper(__(env('APP_NAME'))) }}</h1>
     </neo-topbar>
-    <ul class="nav-colors w-full flex flex-col flex-1 mt-8 md:mt-4 px-2">
+    <ul class="nav-colors w-full flex flex-col flex-1 p-4">
         <li class="w-full mib-w-[240px] overflow-hidden">
             <a href="{{ route('views.core.index') }}" aria-label="dashboard_page_link"
                 class="w-full flex flex-wrap gap-2 px-3 py-2 text-start items-center outline-none rounded-x-thin hover:text-x-white hover:bg-x-acent focus:text-x-white focus:bg-x-acent focus-within:text-x-white focus-within:bg-x-acent {{ Neo::matchRoute('dashboard') ? 'bg-x-prime text-x-white' : 'text-x-black' }}">

@@ -25,8 +25,9 @@
         height: 2rem;
         display: flex;
         outline: none;
-        font-weight: 700;
         cursor: pointer;
+        font-weight: 700;
+        position: relative;
         align-items: center;
         border-radius: .25rem;
         justify-content: center;
@@ -60,7 +61,7 @@
         pointer-events: none;
     }
 
-    [part="chip"].validate, .active {
+    [part="chip"].validate, [part="chip"].active {
         color: {{ @Theme.colors("WHITE") }};
         background: {{ @Theme.colors("PRIME") }};
     }
@@ -80,11 +81,36 @@
         display: flex;
         flex-direction: column;
     }
+
+    {$ if @props.steps.length $}
+        [part="label"] {
+            display: none;
+        }
+        
+        @media (min-width: 1024px) {    
+            [part="progress"] {
+                width: calc(100% - 9rem);
+            }
+
+            [part="label"] {
+                top: 50%;
+                width: 9rem;
+                display: block;
+                font-weight: 500;
+                position: absolute;
+                left: calc(100% + 1rem);
+                transform: translateY(-50%);
+                color: {{ @Theme.colors("BLACK") }};
+                font-size: {{ @Theme.sizes("MEDIUM") }};
+                line-height: {{ @Theme.lines("MEDIUM") }};
+            }
+        }
+    {$ endif $}
 </style>
 
 <template name="neo-stepper">
     <ul part="progress">
-        {$ each step into @range(@props.steps.length) $}
+        {$ each step into @range(@props.items.length) $}
             <li tabindex="0" part="chip" @click="{{ (event) => @rules.exec(event, step) }}" @keydown:propagation="{{ (event) => @rules.exec(event, step) }}" class="{{ @when(step <= @props.current, @when(step == @props.current, "active", "validate"), "") }}">
                 {$ if step < @props.current $}
                     <svg part="icon" viewBox="0 -960 960 960">
@@ -93,6 +119,9 @@
                 {$ else $}
                    {{ step + 1 }}
                 {$ endif $}
+                <span part="label">
+                    {{ @props.steps[step] ?? "" }}
+                </span>
             </li>
             {$ if !@loop.last $}
                 <li part="separator" class="{{ @when(step < @props.current, "validate", "") }}">
@@ -113,6 +142,7 @@
         props: {
             step: "",
             steps: [],
+            items: [],
             current: -1,
         },
        rules: {
@@ -122,37 +152,55 @@
                 }
             },
             change() {
-                const step = this.steps.find(step => step.step === this.props.step);
+                const step = this.items.find(step => step.step === this.props.step);
                 if (step) {
-                    this.props.current = this.steps.indexOf(step);
+                    this.props.current = this.items.indexOf(step);
                     step.active = true;
                 }
             },
             next() {
-                if (this.props.current + 1 > this.steps.length - 1) return;
+                if (this.props.current + 1 > this.items.length - 1) return;
                 this.emit("next", {
-                    step: this.steps[this.props.current],
-                    next: this.steps[this.props.current + 1],
+                    step: {
+                        active: this.items[this.props.current],
+                        next: this.items[this.props.current + 1],
+                    },
+                    index: {
+                        active: this.props.current,
+                        next: this.props.current + 1,
+                    }
                 }, () => {
-                    this.props.step = this.steps[this.props.current + 1].step;
+                    this.props.step = this.items[this.props.current + 1].step;
                 })
             },
             prev() {
                 if (this.props.current - 1 < 0) return;
                 this.emit("prev", {
-                    step: this.steps[this.props.current],
-                    next: this.steps[this.props.current - 1],
+                    step: {
+                        active: this.items[this.props.current],
+                        next: this.items[this.props.current - 1],
+                    },
+                    index: {
+                        active: this.props.current,
+                        next: this.props.current - 1,
+                    }
                 }, () => {
-                    this.props.step = this.steps[this.props.current - 1].step;
+                    this.props.step = this.items[this.props.current - 1].step;
                 });
             },
             goto(index) {
-                if (index < 0 || index > this.steps.length - 1 || this.props.current === index) return;
+                if (index < 0 || index > this.items.length - 1 || this.props.current === index) return;
                 this.emit(this.props.current < index ? "next" : "prev", {
-                    step: this.steps[this.props.current],
-                    next: this.steps[index],
+                    step: {
+                        active: this.items[this.props.current],
+                        next: this.items[index],
+                    },
+                    index: {
+                        active: this.props.current,
+                        next: index,
+                    }
                 }, () => {
-                    this.props.step = this.steps[index].step;
+                    this.props.step = this.items[index].step;
                 });
             }
         },
@@ -167,7 +215,7 @@
                     for(const mutation of mutationsList){
                         if (mutation.type === 'childList') {
                             [...this.querySelectorAll(":scope>:not(neo-stepper-item,[slot=top],[slot=bottom])")].map((other) => other.remove()); 
-                            this.props.steps = [...this.querySelectorAll("neo-stepper-item")]; 
+                            this.props.items = [...this.querySelectorAll("neo-stepper-item")]; 
                         } 
                     }             
                 });
@@ -178,8 +226,13 @@
                     this.removeAttribute("step");
                 }
 
+                 if (this.hasAttribute("steps")) {
+                    this.props.steps = this.getAttribute("steps").split("|").filter(Boolean).map(e => e.trim());
+                    this.removeAttribute("steps");
+                }
+
                 [...this.querySelectorAll(":scope>:not(neo-stepper-item,[slot=top],[slot=bottom])")].map((other) => other.remove()); 
-                this.props.steps = [...this.querySelectorAll("neo-stepper-item")]; 
+                this.props.items = [...this.querySelectorAll("neo-stepper-item")]; 
             },
             removed() {
                 this.state.observer.disconnect();
@@ -187,13 +240,13 @@
             updated(name, prev, next, type) {
                 Neo.Helper.option({
                     props: {
-                        "current": () => {
+                        "current,steps": () => {
                             this.emit("change:" + name, { 
                                 data: next 
                             });
                         },
                         "step": () => {
-                            const step = this.steps.find(step => step.step === prev);
+                            const step = this.items.find(step => step.step === prev);
                             if (step) step.active = false;
                             this.rules.change();
                             this.emit("change:" + name, { 

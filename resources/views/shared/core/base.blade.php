@@ -10,24 +10,24 @@
     @yield('styles')
     <title>@yield('title')</title>
     @if (Neo::preference())
-    @php
-    $colors = Neo::themesList(Neo::preference('theme_color'));
-    \Carbon\Carbon::setLocale(Neo::preference('language'));
-    @endphp
-    <meta name="core"
-        content="{{ json_encode([
+        @php
+            $colors = Neo::themesList(Neo::preference('theme_color'));
+            \Carbon\Carbon::setLocale(Neo::preference('language'));
+        @endphp
+        <meta name="core"
+            content="{{ json_encode([
                 'format' => Neo::formatsList(Neo::preference('date_format'), 0),
                 'currency' => Neo::preference('currency'),
             ]) }}">
-    <style>
-        *,
-        :root,
-        *::after,
-        *::before {
-            --prime: {{ $colors[0] }};
-            --acent: {{ $colors[1] }};
-        }
-    </style>
+        <style>
+            *,
+            :root,
+            *::after,
+            *::before {
+                --prime: {{ $colors[0] }};
+                --acent: {{ $colors[1] }};
+            }
+        </style>
     @endif
 </head>
 
@@ -38,7 +38,7 @@
     </section>
     <neo-wrapper class="flex flex-wrap">
         @include('shared.core.sidebar')
-        <main class="w-full lg:w-0 lg:flex-1 h-[100dvh] overflow-auto flex flex-col gap-8 md:gap-4 pb-8">
+        <main class="w-full lg:w-0 lg:flex-1 h-[100dvh] overflow-auto flex flex-col gap-8 pb-8">
             @include('shared.core.topbar')
             <div class="px-4 container mx-auto">
                 @yield('content')

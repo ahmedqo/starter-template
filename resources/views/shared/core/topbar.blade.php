@@ -1,21 +1,20 @@
-<neo-topbar transparent align="space-between" class="bg-x-prime md:bg-transparent">
+<neo-topbar align="space-between" class="shadow">
     <div class="lg:flex-1 min-w-max flex flex-wrap gap-4 items-center">
         <button id="trigger" onclick="sidebar.toggle()" aria-label="sidebar_trigger"
-            class="flex w-8 h-8 items-center justify-center text-x-white md:text-x-black outline-none rounded-x-thin hover:bg-x-black/5 focus:bg-x-black/5 focus-within:bg-x-black/5">
+            class="flex w-8 h-8 items-center justify-center text-x-white outline-none rounded-x-thin hover:bg-x-black/5 focus:bg-x-black/5 focus-within:bg-x-black/5">
             <svg class="block w-6 h-6 pointer-events-none" fill="currentcolor" viewBox="0 -960 960 960">
                 <path
                     d="M129-215q-20.75 0-33.375-12.675Q83-240.351 83-261.175 83-280 95.625-293T129-306h458q19.75 0 32.375 13.175 12.625 13.176 12.625 32Q632-240 619.375-227.5 606.75-215 587-215H129Zm0-221q-20.75 0-33.375-13.175Q83-462.351 83-482.175 83-502 95.625-514.5 108.25-527 129-527h339q18.75 0 31.875 12.675Q513-501.649 513-481.825 513-462 499.875-449 486.75-436 468-436H129Zm0-218q-20.75 0-33.375-13.175Q83-680.351 83-700.175 83-720 95.625-733 108.25-746 129-746h458q19.75 0 32.375 13.175 12.625 13.176 12.625 33Q632-680 619.375-667 606.75-654 587-654H129Zm605 173 114 113q13 14 12.5 33T847-304q-15 14-33.5 14T782-304L637-450q-14-13-14-31t14-32l145-146q13-13 31.5-13t33.5 13q13 14 12.5 33T847-594L734-481Z" />
             </svg>
         </button>
     </div>
-    <h1
-        class="lg:flex-[3] me-auto md:me-0 lg:text-center text-x-white md:text-x-black font-x-thin text-base md:text-2xl">
+    <h1 class="lg:flex-[3] me-auto md:me-0 lg:text-center text-x-white font-x-thin text-base md:text-2xl">
         @yield('title')
     </h1>
     <div class="lg:flex-1 min-w-max items-center justify-end flex flex-wrap gap-1">
         <neo-dropdown label="{{ __('System') }}">
             <button slot="trigger" aria-label="setting_trigger"
-                class="flex w-8 h-8 items-center justify-center text-x-white md:text-x-black outline-none rounded-x-thin hover:bg-x-black/5 focus:bg-x-black/5 focus-within:bg-x-black/5">
+                class="flex w-8 h-8 items-center justify-center text-x-white outline-none rounded-x-thin hover:bg-x-black/5 focus:bg-x-black/5 focus-within:bg-x-black/5">
                 <svg class="block w-6 h-6 pointer-events-none" fill="currentcolor" viewBox="0 -960 960 960">
                     <path
                         d="M408-59q-18 0-31-10.5T363-98l-15-94q-14-4-31-14t-28-19l-86 41q-15 6-32.5 1.5T144-204L72-332q-10-16-5-32.5T85-391l80-59q-1-5-1-14.5v-30q0-8.5 1-15.5l-81-58q-13-11-17.5-27.5T72-628l72-127q9-16 26.5-21t32.5 0l88 41q10-7 27-17t30-14l15-98q1-16 14.5-27t31.5-11h143q17 0 30.5 11t15.5 27l14 97q15 4 31.5 14t27.5 18l86-41q15-5 32.5 0t26.5 21l73 126q9 16 5 33t-19 28l-81 55q1 8 2.5 17t1.5 16q0 7-1.5 15.5T794-449l81 58q13 10 18.5 26.5T890-332l-74 128q-10 17-27 21.5t-32-1.5l-86-41q-11 9-28.5 19.5T613-192l-15 94q-2 18-15 28.5T552-59H408Zm71-294q53 0 90-37t37-90q0-52-37-89.5T479-607q-54 0-90.5 37.5T352-480q0 53 36.5 90t90.5 37Z" />

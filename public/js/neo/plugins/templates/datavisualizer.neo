@@ -871,10 +871,10 @@
         },
         rules: {
             rowClick(event, meta) {
-                this.emit("click:row", { meta, target: event.target });
+                ["TR", "TD", "TH"].includes(event.target.tagName) && this.emit("click:row", { meta, target: event.target });
             },
             colClick(event, meta) {
-                this.emit("click:col", { meta, target: event.target });
+                ["TD", "TH"].includes(event.target.tagName) && this.emit("click:col", { meta, target: event.target });
             },
             download() {
                 const cols = [];
