@@ -40,7 +40,7 @@
         @include('shared.core.sidebar')
         <main class="w-full lg:w-0 lg:flex-1 h-[100dvh] overflow-auto flex flex-col gap-8 pb-8">
             @include('shared.core.topbar')
-            <div class="px-4 container mx-auto">
+            <div class="px-4 container mx-auto max-w-[1200px]">
                 @yield('content')
             </div>
         </main>
