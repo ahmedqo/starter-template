@@ -1,5 +1,9 @@
 {
-  "dependencies": {
-    "uglify-js": "^3.17.4"
-  }
+    "dependencies": {
+        "uglify-js": "^3.17.4"
+    },
+    "scripts": {
+        "mix": "node run plugins/templates plugins/index.min.js --mix",
+        "plug": "node run plugins/templates plugins"
+    }
 }

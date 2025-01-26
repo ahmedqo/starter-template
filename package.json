@@ -1,0 +1,8 @@
+{
+    "scripts": {
+        "css": "npx tailwindcss -i ./config.css -o ./public/css/index.min.css --watch --minify"
+    },
+    "dependencies": {
+        "tailwindcss": "^1.9.6"
+    }
+}

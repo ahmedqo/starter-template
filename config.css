@@ -1,4 +1,22 @@
-@import "tailwindcss";
+:root {
+    /** */
+    --prime: 32 138 243;
+    --acent: 110 179 247;
+    /** */
+    --black: 29 29 29;
+    --white: 254 254 254;
+    --light: 245 245 245;
+    --shade: 209 209 209;
+    --r-thin: 4px;
+    --r-huge: 10px;
+    --w-thin: 600;
+    --w-huge: 800;
+    --shadow: 0px 2px 10px -8px rgb(var(--black) / 100%);
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 ::-webkit-search-cancel-button,
 ::-webkit-inner-spin-button,
 ::-webkit-outer-spin-button {
@@ -46,35 +64,6 @@ input {
     -webkit-appearance: textfield;
     -moz-appearance: textfield;
     appearance: textfield;
-}
-
-@theme {
-    /** */
-    --prime: 32 138 243;
-    --acent: 110 179 247;
-    /** */
-    --black: 29 29 29;
-    --white: 254 254 254;
-    --light: 245 245 245;
-    --shade: 209 209 209;
-    --r-thin: 4px;
-    --r-huge: 10px;
-    --w-thin: 600;
-    --w-huge: 800;
-    --shadow: 0px 2px 10px -8px rgb(var(--black) / 100%);
-    /** */
-    --color-x-prime: --alpha(rgb(var(--prime)) / 100%);
-    --color-x-acent: --alpha(rgb(var(--acent)) / 100%);
-    /** */
-    --color-x-black: --alpha(rgb(var(--black)) / 100%);
-    --color-x-white: --alpha(rgb(var(--white)) / 100%);
-    --color-x-light: --alpha(rgb(var(--light)) / 100%);
-    --color-x-shade: --alpha(rgb(var(--shade)) / 100%);
-    --radius-x-thin: var(--r-thin);
-    --radius-x-huge: var(--r-huge);
-    --font-weight-x-thin: var(--w-thin);
-    --font-weight-x-huge: var(--w-huge);
-    --shadow-x-core: var(--shadow);
 }
 
 body[close] {
