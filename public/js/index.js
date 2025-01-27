@@ -396,6 +396,11 @@ Neo.load(function () {
                     {rules: {}, message: {failure: {}}}
                 ),
                 failure (field, __, message) {
+                    const step = field.closest("neo-stepper-item"),
+                        stepper = step.parentElement;
+
+                    stepper.goto(stepper.items.indexOf(step));
+
                     Neo.Toaster.toast(message, "error");
                     field.classList.add(
                         "outline",

@@ -1,70 +1,66 @@
-:root {
-    /** */
-    --prime: 32 138 243;
-    --acent: 110 179 247;
-    /** */
-    --black: 29 29 29;
-    --white: 254 254 254;
-    --light: 245 245 245;
-    --shade: 209 209 209;
-    --r-thin: 4px;
-    --r-huge: 10px;
-    --w-thin: 600;
-    --w-huge: 800;
-    --shadow: 0px 2px 10px -8px rgb(var(--black) / 100%);
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-::-webkit-search-cancel-button,
-::-webkit-inner-spin-button,
-::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    display: none;
+@layer theme {
+     :root {
+        /** */
+        --prime: 32 138 243;
+        --acent: 110 179 247;
+        /** */
+        --black: 29 29 29;
+        --white: 254 254 254;
+        --light: 245 245 245;
+        --shade: 209 209 209;
+        --r-thin: 4px;
+        --r-huge: 10px;
+        --w-thin: 600;
+        --w-huge: 800;
+        --shadow: 0px 2px 10px -8px rgb(var(--black) / 100%);
+    }
 }
 
-::-webkit-scrollbar {
-    appearance: none;
-    -o-appearance: none;
-    -ms-appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    background: transparent;
-    height: 5px;
-    width: 5px;
-}
-
-body::-webkit-scrollbar {
-    height: 12px;
-    width: 12px;
-}
-
-::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background: rgb(209 213 219 / 1);
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: rgb(156 163 175 / 1);
-}
-
-* {
-    box-sizing: border-box;
-    font-family: inherit;
-}
-
-input {
-    -webkit-appearance: textfield;
-    -moz-appearance: textfield;
-    appearance: textfield;
+@layer base {
+     ::-webkit-search-cancel-button,
+     ::-webkit-inner-spin-button,
+     ::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        display: none;
+    }
+     ::-webkit-scrollbar {
+        appearance: none;
+        -o-appearance: none;
+        -ms-appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        background: transparent;
+        height: 5px;
+        width: 5px;
+    }
+    body::-webkit-scrollbar {
+        height: 12px;
+        width: 12px;
+    }
+     ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+     ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background: rgb(209 213 219 / 1);
+    }
+     ::-webkit-scrollbar-thumb:hover {
+        background: rgb(156 163 175 / 1);
+    }
+    * {
+        box-sizing: border-box;
+        font-family: inherit;
+    }
+    input {
+        -webkit-appearance: textfield;
+        -moz-appearance: textfield;
+        appearance: textfield;
+    }
 }
 
 body[close] {
@@ -238,12 +234,13 @@ neo-stepper::part(chip:not(.active):not(.validate)) {
         border-radius: var(--r-thin);
     }
     neo-sidebar {
-        border: unset;
-        box-shadow: none;
-        background: transparent;
-        backdrop-filter: none;
+        transition: max-width 250ms ease-in-out;
     }
-    neo-topbar::part(content) {
-        gap: 1rem;
+    neo-sidebar:not(:hover) {
+        max-width: 5rem;
+    }
+    neo-sidebar:not(:hover) .header,
+    neo-sidebar:not(:hover) .text {
+        display: none;
     }
 }

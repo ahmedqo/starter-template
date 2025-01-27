@@ -202,6 +202,9 @@
                 }, () => {
                     this.props.step = this.items[index].step;
                 });
+            },
+            items() {
+                return [...this.querySelectorAll("neo-stepper-item")].map((step, index) => step.order = index);
             }
         },
         cycle: {
@@ -215,7 +218,7 @@
                     for(const mutation of mutationsList){
                         if (mutation.type === 'childList') {
                             [...this.querySelectorAll(":scope>:not(neo-stepper-item,[slot=top],[slot=bottom])")].map((other) => other.remove()); 
-                            this.props.items = [...this.querySelectorAll("neo-stepper-item")]; 
+                            this.props.items = this.rules.items();
                         } 
                     }             
                 });
@@ -232,7 +235,7 @@
                 }
 
                 [...this.querySelectorAll(":scope>:not(neo-stepper-item,[slot=top],[slot=bottom])")].map((other) => other.remove()); 
-                this.props.items = [...this.querySelectorAll("neo-stepper-item")]; 
+                this.props.items = this.rules.items();
             },
             removed() {
                 this.state.observer.disconnect();

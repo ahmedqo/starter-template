@@ -18,6 +18,7 @@
         attrs: ["active"],
         props: {
             step: "",
+            order: -1, 
             active: false,
             complete: false,
         },
