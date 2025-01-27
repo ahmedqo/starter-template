@@ -324,15 +324,87 @@ const Neo = (function Neo() {
         }
     }
 
+    // class Parser {
+    //     static {
+    //         this.join = new RegExp("\\$JOIN\\$\\d+\\$");
+    //         this.nbr = new RegExp("\\d+");
+
+    //         this.compose = function compose(source, props) {
+    //             return source.reduce((acc, part, i) => {
+    //                 return acc + part + (i < props.length ? (["string", "number", "boolean"].includes(typeof props[i]) ? props[i] : "$JOIN$" + i + "$") : "")
+    //             }, "").trim();
+    //         }
+
+    //         this.parse = function parse(source) {
+    //             const template = document.createElement("template");
+    //             template.innerHTML = source;
+    //             return template.content;
+    //         }
+    //     }
+
+    //     constructor(source, ...props) {
+    //         this.source = source;
+    //         this.props = props;
+    //     }
+
+    //     attrs(target, fiber) {
+    //         if (target.attributes && target.attributes.length) {
+    //             for (let i = 0; i < target.attributes.length; i++) {
+    //                 const value = Parser.join.test(target.attributes[i].nodeValue) ? this.props[+target.attributes[i].nodeValue.match(Parser.nbr)] : target.attributes[i].nodeValue;
+    //                 fiber.props[target.attributes[i].nodeName] = value;
+    //             }
+    //         }
+    //     }
+
+    //     nodes(target, fiber) {
+    //         if (target && target.length) {
+    //             for (let i = 0; i < target.length; i++) {
+    //                 if (target[i].nodeType === 3) {
+    //                     if (target[i].nodeValue.trim()) {
+    //                         const index = target[i].nodeValue.replace(/\s\s+|\n|\r\n/g, '');
+    //                         const isElement = Parser.join.test(index) && this.props[+index.match(Parser.nbr)];
+    //                         if (isElement) {
+    //                             if (isElement instanceof Neo.Sketch) {
+    //                                 fiber.props.children.push(...isElement.exec());
+    //                                 return;
+    //                             }
+    //                             const _fiber = new Fiber(isElement, { children: [] });
+    //                             fiber.props.children.push(_fiber);
+    //                             this.tree(isElement, fiber.props.children[fiber.props.children.length - 1]);
+    //                         } else {
+    //                             fiber.props.children.push(new Fiber(NEO_TEXT_SYMBOL, { nodeValue: index }));
+    //                         }
+    //                     }
+    //                 } else {
+    //                     fiber.props.children.push(new Fiber());
+    //                     this.tree(target[i], fiber.props.children[fiber.props.children.length - 1]);
+    //                 }
+    //             }
+    //         }
+    //     }
+
+    //     tree(target, fiber) {
+    //         fiber.type = target.nodeName.toLowerCase();
+    //         this.nodes(target.childNodes, fiber);
+    //         this.attrs(target, fiber);
+    //     }
+
+    //     exec() {
+    //         const source = Parser.compose(this.source, this.props),
+    //             fiber = new Fiber();
+
+    //         this.tree(Parser.parse(source), fiber);
+    //         return fiber.props.children;
+    //     }
+    // }
+
     class Parser {
         static {
             this.join = new RegExp("\\$JOIN\\$\\d+\\$");
             this.nbr = new RegExp("\\d+");
 
             this.compose = function compose(source, props) {
-                return source.reduce((acc, part, i) => {
-                    return acc + part + (i < props.length ? (["string", "number", "boolean"].includes(typeof props[i]) ? props[i] : "$JOIN$" + i + "$") : "")
-                }, "").trim();
+                return source.reduce((acc, part, i) => acc + part + (i < props.length ? ["string", "number", "boolean"].includes(typeof props[i]) ? props[i] : `$JOIN$${i}$` : ""), "").trim();
             }
 
             this.parse = function parse(source) {
@@ -347,53 +419,49 @@ const Neo = (function Neo() {
             this.props = props;
         }
 
-        attrs(target, fiber) {
-            if (target.attributes && target.attributes.length) {
-                for (let i = 0; i < target.attributes.length; i++) {
-                    const value = Parser.join.test(target.attributes[i].nodeValue) ? this.props[+target.attributes[i].nodeValue.match(Parser.nbr)] : target.attributes[i].nodeValue;
-                    fiber.props[target.attributes[i].nodeName] = value;
-                }
-            }
-        }
-
-        nodes(target, fiber) {
-            if (target && target.length) {
-                for (let i = 0; i < target.length; i++) {
-                    if (target[i].nodeType === 3) {
-                        if (target[i].nodeValue.trim()) {
-                            const index = target[i].nodeValue.replace(/\s\s+|\n|\r\n/g, '');
-                            const isElement = Parser.join.test(index) && this.props[+index.match(Parser.nbr)];
-                            if (isElement) {
-                                if (isElement instanceof Neo.Sketch) {
-                                    fiber.props.children.push(...isElement.exec());
-                                    return;
-                                }
-                                const _fiber = new Fiber(isElement, { children: [] });
-                                fiber.props.children.push(_fiber);
-                                this.tree(isElement, fiber.props.children[fiber.props.children.length - 1]);
-                            } else {
-                                fiber.props.children.push(new Fiber(NEO_TEXT_SYMBOL, { nodeValue: index }));
-                            }
-                        }
-                    } else {
-                        fiber.props.children.push(new Fiber());
-                        this.tree(target[i], fiber.props.children[fiber.props.children.length - 1]);
+        traverse(node) {
+            if (node.nodeType !== Node.TEXT_NODE) {
+                return new Fiber(
+                    node.nodeName.toLowerCase(), {
+                        // ...Object.fromEntries(Array.from(node.attributes || []).map((attr) => {
+                        //     const name = Parser.join.test(attr.name) ? this.props[+attr.name.match(Parser.nbr)] : attr.name;
+                        //     const value = Parser.join.test(attr.value) ? this.props[+attr.value.match(Parser.nbr)] : attr.value;
+                        //     return [name, value]
+                        // })),
+                        ...Array.from(node.attributes || []).reduce((carry, attr) => {
+                            const name = Parser.join.test(attr.name) ? this.props[+attr.name.match(Parser.nbr)] : attr.name;
+                            const value = Parser.join.test(attr.value) ? this.props[+attr.value.match(Parser.nbr)] : attr.value;
+                            carry[name] = value;
+                            return carry;
+                        }, {}),
+                        children: Array.from(node.childNodes).map(
+                            (node) => this.traverse(node)
+                        ).filter(Boolean).flat()
                     }
-                }
+                );
             }
-        }
 
-        tree(target, fiber) {
-            fiber.type = target.nodeName.toLowerCase();
-            this.nodes(target.childNodes, fiber);
-            this.attrs(target, fiber);
+            const value = node.nodeValue.trim();
+            if (!value.trim()) return null;
+
+            const index = value.replace(/\s\s+|\n|\r\n/g, "");
+            const isProp = Parser.join.test(index);
+
+            if (!isProp) return new Fiber(NEO_TEXT_SYMBOL, {
+                nodeValue: value
+            });
+
+            const element = this.props[+index.match(Parser.nbr)];
+
+            return element instanceof Neo.Sketch ? element.exec() : new Fiber(element, {
+                children: []
+            });
         }
 
         exec() {
-            const source = Parser.compose(this.source, this.props),
-                fiber = new Fiber();
+            const source = Parser.compose(this.source, this.props);
+            const fiber = this.traverse(Parser.parse(source));
 
-            this.tree(Parser.parse(source), fiber);
             return fiber.props.children;
         }
     }

@@ -4,6 +4,7 @@
     },
     "scripts": {
         "mix": "node run plugins/templates plugins/index.min.js --mix",
-        "plug": "node run plugins/templates plugins"
+        "plug": "node run plugins/templates plugins",
+        "both": "npm run mix && npm run plug"
     }
 }

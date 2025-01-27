@@ -204,7 +204,10 @@
                 });
             },
             items() {
-                return [...this.querySelectorAll("neo-stepper-item")].map((step, index) => step.order = index);
+                return [...this.querySelectorAll("neo-stepper-item")].map((step, index) => {
+                    step.order = index;
+                    return step;
+                });
             }
         },
         cycle: {

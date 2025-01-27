@@ -11,7 +11,6 @@
     <title>@yield('title')</title>
     @if (Neo::preference())
         @php
-            $colors = Neo::themesList(Neo::preference('theme_color'));
             \Carbon\Carbon::setLocale(Neo::preference('language'));
         @endphp
         <meta name="core"
@@ -20,13 +19,7 @@
                 'currency' => Neo::preference('currency'),
             ]) }}">
         <style>
-            *,
-            :root,
-            *::after,
-            *::before {
-                --prime: {{ $colors[0] }};
-                --acent: {{ $colors[1] }};
-            }
+            {{ Neo::colors() }}
         </style>
     @endif
 </head>

@@ -24,10 +24,10 @@
         },
         cycle: {
             mounted(){
+                const parent = this.closest("neo-stepper");
                 if(this.hasAttribute("step")) {
                     this.props.step = this.getAttribute("step");
                     this.removeAttribute("step");
-                    const parent = this.parentElement;
                     if(this.props.step === parent.step) {
                         this.props.active = true;
                         parent.rules.change();
@@ -36,6 +36,8 @@
                         parent.step = this.props.step;
                     }
                 }
+
+                this.props.order = (parent.items || []).indexOf(this);
             },
             updated(name, prev, next, type) {
                 Neo.Helper.option({

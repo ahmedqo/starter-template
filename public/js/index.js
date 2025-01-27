@@ -399,7 +399,7 @@ Neo.load(function () {
                     const step = field.closest("neo-stepper-item"),
                         stepper = step.parentElement;
 
-                    stepper.goto(stepper.items.indexOf(step));
+                    stepper.goto(step.order);
 
                     Neo.Toaster.toast(message, "error");
                     field.classList.add(

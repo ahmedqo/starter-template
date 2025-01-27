@@ -234,13 +234,12 @@ neo-stepper::part(chip:not(.active):not(.validate)) {
         border-radius: var(--r-thin);
     }
     neo-sidebar {
-        transition: max-width 250ms ease-in-out;
+        transition: max-width 200ms ease-in-out;
     }
     neo-sidebar:not(:hover) {
         max-width: 5rem;
     }
-    neo-sidebar:not(:hover) .header,
-    neo-sidebar:not(:hover) .text {
-        display: none;
+    neo-topbar::part(content) {
+        gap: 1rem;
     }
 }

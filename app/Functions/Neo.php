@@ -42,6 +42,12 @@ class Neo
         return static::$Preference ? ($prop ? static::$Preference->{$prop} : static::$Preference) : false;
     }
 
+    public static function colors()
+    {
+        $colors = Neo::themesList(Neo::preference('theme_color'));
+        return ":root{--prime: $colors[0];--acent:$colors[1];}";
+    }
+
     public static function getDates($period = null)
     {
         switch ($period ?? static::preference('report_frequency')) {
