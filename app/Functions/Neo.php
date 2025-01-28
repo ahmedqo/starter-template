@@ -24,16 +24,15 @@ class Neo
         return $locale ? $current == $locale : $current;
     }
 
-
     public static function auth($prop = null)
     {
         if (!static::$Auth) {
             $id = Auth::id();
-            // $cache = User::addCache("auths/$id", ["auths:$id", "preference:$id"]);
+            $cache = User::addCache("auths/$id", ["auths:$id", "preference:$id"]);
 
-            static::$Auth = // Cache::rememberForever($cache, function () use ($id) {
-                User::with('Preference')->where('id', $id)->first();
-            // });
+            static::$Auth = Cache::rememberForever($cache, function () use ($id) {
+                return  User::with('Preference')->where('id', $id)->first();
+            });
         }
 
         return static::$Auth ? ($prop ? static::$Auth->{$prop} : static::$Auth) : false;
