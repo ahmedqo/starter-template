@@ -27,15 +27,15 @@
                 </button>
                 <ul class="w-full flex flex-col">
                     @foreach (Neo::languagesList() as $lang => $language)
-                    <li class="w-full">
-                        <a href="{{ route('actions.language.index', 'en') }}"
-                            class="w-full flex flex-wrap gap-2 px-4 py-2 items-center outline-none hover:text-x-white hover:bg-x-acent focus:text-x-white focus:bg-x-acent focus-within:text-x-white focus-within:bg-x-acent {{ Neo::locale($lang) ? 'bg-x-prime text-x-white' : 'text-x-black' }}">
-                            <img src="{{ asset('lang/' . $lang . '.png') }}?v={{ env('APP_VERSION') }}"
-                                alt=" {{ ucfirst(__($language)) }} flag" loading="lazy"
-                                class="block w-6 h-4 object-contain" />
-                            <span class="block flex-1 text-base text-start"> {{ ucfirst(__($language)) }}</span>
-                        </a>
-                    </li>
+                        <li class="w-full">
+                            <a href="{{ route('actions.language.index', 'en') }}"
+                                class="w-full flex flex-wrap gap-2 px-4 py-2 items-center outline-none hover:text-x-white hover:bg-x-acent focus:text-x-white focus:bg-x-acent focus-within:text-x-white focus-within:bg-x-acent {{ Neo::locale($lang) ? 'bg-x-prime text-x-white' : 'text-x-black' }}">
+                                <img src="{{ asset('lang/' . $lang . '.png') }}?v={{ env('APP_VERSION') }}"
+                                    alt=" {{ ucfirst(__($language)) }} flag" loading="lazy"
+                                    class="block w-6 h-4 object-contain" />
+                                <span class="block flex-1 text-base text-start"> {{ ucfirst(__($language)) }}</span>
+                            </a>
+                        </li>
                     @endforeach
                 </ul>
             </neo-dropdown>

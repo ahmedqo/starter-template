@@ -3,8 +3,8 @@
         "uglify-js": "^3.17.4"
     },
     "scripts": {
-        "mix": "node run plugins/templates plugins/index.min.js --mix",
-        "plug": "node run plugins/templates plugins",
-        "both": "npm run mix && npm run plug"
+        "components": "node run plugins/templates plugins/index.min.js --mix",
+        "plugins": "node run plugins/templates plugins",
+        "build": "npm run components && npm run plugins"
     }
 }

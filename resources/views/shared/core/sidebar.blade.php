@@ -1,5 +1,5 @@
 <neo-sidebar id="sidebar">
-    <neo-topbar align="start" style="height: 3.5rem" class="shade">
+    <neo-topbar align="start" style="height: 3.5rem" class="shadow-x-core">
         <img src="{{ Neo::logo() }}" alt="{{ env('APP_NAME') }} logo image"
             class="block w-auto h-full pointer-events-auto" width="916" height="516" loading="lazy" />
         <h1 class="header text-xl font-x-huge text-x-white">{{ strtoupper(__(env('APP_NAME'))) }}</h1>

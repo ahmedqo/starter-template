@@ -1,6 +1,6 @@
-<neo-topbar align="space-between" class="shade">
+<neo-topbar align="space-between" class="shadow-x-core">
     <div class="lg:flex-1 min-w-max flex flex-wrap gap-4 items-center">
-        <button id="trigger" onclick="sidebar.toggle()" aria-label="sidebar_trigger"
+        <button id="trigger" onclick="sidebar.toggle()"
             class="flex w-8 h-8 items-center justify-center text-x-white outline-none rounded-x-thin hover:bg-x-black/5 focus:bg-x-black/5 focus-within:bg-x-black/5">
             <svg class="block w-6 h-6 pointer-events-none" fill="currentcolor" viewBox="0 -960 960 960">
                 <path
@@ -13,7 +13,7 @@
     </h1>
     <div class="lg:flex-1 min-w-max items-center justify-end flex flex-wrap gap-1">
         <neo-dropdown label="{{ __('System') }}">
-            <button slot="trigger" aria-label="setting_trigger"
+            <button slot="trigger"
                 class="flex w-8 h-8 items-center justify-center text-x-white outline-none rounded-x-thin hover:bg-x-black/5 focus:bg-x-black/5 focus-within:bg-x-black/5">
                 <svg class="block w-6 h-6 pointer-events-none" fill="currentcolor" viewBox="0 -960 960 960">
                     <path
@@ -54,7 +54,7 @@
                 <li class="w-full">
                     <form action="{{ route('actions.close.index') }}" method="POST">
                         @csrf
-                        <button type="submit" aria-label="logout_trigger"
+                        <button type="submit"
                             class="w-full flex flex-wrap gap-2 px-4 py-2 text-start items-center outline-none hover:text-x-white hover:bg-x-acent focus:text-x-white focus:bg-x-acent focus-within:text-x-white focus-within:bg-x-acent">
                             <svg class="block w-6 h-6 pointer-events-none" fill="currentcolor" viewBox="0 -960 960 960">
                                 <path

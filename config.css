@@ -61,30 +61,20 @@
         -moz-appearance: textfield;
         appearance: textfield;
     }
+    .bg-x-gradient {
+        background-image: radial-gradient(circle, rgba(var(--prime) / .1) 0%, rgba(var(--acent) / .05) 100%);
+    }
+    .max-w-20 {
+        max-width: 5rem;
+    }
 }
 
 body[close] {
-    height: 100dvh;
-    overflow: hidden;
+    @apply h-[100dvh] overflow-hidden;
 }
 
 body[close]>#neo-page-cover {
-    position: fixed;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2rem;
-    font-weight: 900;
-    width: 100%;
-    height: 100dvh;
-    inset: 0;
-    z-index: 999999;
-    background-color: rgb(var(--light));
-    background-image: radial-gradient(circle, rgba(var(--prime) / .1) 0%, rgba(var(--acent) / .05) 100%);
-}
-
-.bg-x-gradient {
-    background-image: radial-gradient(circle, rgba(var(--prime) / .1) 0%, rgba(var(--acent) / .05) 100%);
+    @apply fixed flex items-center justify-center w-full h-[100dvh] inset-0 z-[99999] bg-x-light bg-x-gradient;
 }
 
 neo-select,
@@ -96,19 +86,17 @@ neo-datepicker,
 neo-timepicker,
 neo-autocomplete,
 neo-imagetransfer {
-    border: 1px solid rgb(var(--shade) / 1);
-    background-color: rgb(var(--white) / 1);
+    @apply border border-x-shade bg-x-white;
 }
 
-neo-topbar.shade,
 neo-select::part(content),
 neo-sidebar::part(content),
 neo-dropdown::part(content),
 neo-datepicker::part(content),
 neo-timepicker::part(content),
-neo-autocomplete::part(content) {
-    box-shadow: var(--shadow);
-    border: unset;
+neo-autocomplete::part(content),
+neo-datavisualizer::part(filter-content) {
+    @apply shadow-x-core border-none;
 }
 
 neo-button,
@@ -123,7 +111,7 @@ neo-autocomplete,
 neo-imagetransfer,
 neo-datavisualizer::part(wrapper),
 neo-datavisualizer::part(search-wrapper) {
-    border-radius: var(--r-thin);
+    @apply rounded-x-thin;
 }
 
 neo-select,
@@ -136,92 +124,77 @@ neo-datepicker,
 neo-timepicker,
 neo-autocomplete,
 neo-imagetransfer {
-    padding: 1rem;
+    @apply p-4;
 }
 
 neo-select-item,
 neo-autocomplete::part(item) {
-    padding: .5rem 1rem;
+    @apply px-4 py-2;
 }
 
 neo-button {
-    padding-block: .813rem;
+    @apply px-[.813rem];
 }
 
 neo-datavisualizer::part(topbar) {
-    border-bottom: 1px solid rgb(var(--shade) / 1);
-    padding: .75rem 1.5rem;
-    margin: 0;
+    @apply border border-x-shade m-0 my-3 mx-6;
 }
 
 neo-datavisualizer::part(wrapper) {
-    border-radius: 0 !important;
-    border: unset;
+    @apply border-none !rounded-none;
 }
 
 neo-datavisualizer::part(header) {
-    font-weight: var(--w-thin);
-    font-size: 1.25rem;
-    line-height: 1.75rem;
+    @apply font-x-thin text-xl;
 }
 
 neo-datavisualizer::part(header),
 neo-datavisualizer::part(tools) {
-    margin: 0;
+    @apply m-0;
 }
 
 neo-datavisualizer::part(tools) {
-    margin-inline-start: auto;
+    @apply ms-auto;
 }
 
 neo-datavisualizer::part(search-wrapper) {
-    border: 1px solid rgb(var(--shade) / 1);
-    background-color: rgb(var(--white) / 1);
+    @apply border border-x-shade bg-x-white;
 }
 
 neo-datavisualizer::part(wrapper),
 neo-datavisualizer::part(table-body-row) {
-    border-color: rgb(var(--shade) / 1);
+    @apply bg-x-shade;
 }
 
 neo-datavisualizer::part(table-body-col) {
-    padding-block: .75rem;
+    @apply px-3;
 }
 
 neo-datavisualizer::part(table-empty-col) {
-    font-weight: var(--w-thin);
-    background-color: rgb(var(--white) / 1);
+    @apply font-x-thin bg-x-white;
 }
 
 neo-topbar::part(content) {
-    height: 100%;
-    gap: .5rem;
+    @apply h-full gap-2;
 }
 
 neo-stepper::part(wrapper) {
-    background: rgb(var(--white));
-    border-radius: var(--r-thin);
-    box-shadow: var(--shadow);
-    padding: 1.5rem;
-    gap: 1.5rem;
+    @apply bg-x-white rounded-x-thin shadow-x-core p-6 gap-6;
 }
 
-neo-stepper::part(separator) {
-    background: rgb(var(--white));
-}
-
+neo-stepper::part(separator),
 neo-stepper::part(chip:not(.active):not(.validate)) {
-    background: rgb(var(--white));
+    @apply bg-x-white;
 }
 
 .richtexteditor,
 .richtexteditor rte-line-break,
 .richtexteditor rte-toolbar {
-    border-color: rgb(var(--shade) / 1) !important;
+    @apply !border-x-shade;
 }
 
 .richtexteditor {
-    background-color: rgb(var(--white) / 1) !important;
+    @apply !bg-x-white;
 }
 
 @media (min-width: 1024px) {
@@ -231,15 +204,15 @@ neo-stepper::part(chip:not(.active):not(.validate)) {
     neo-timepicker::part(content),
     neo-autocomplete::part(content),
     neo-datavisualizer::part(filter-content) {
-        border-radius: var(--r-thin);
+        @apply rounded-x-thin;
     }
     neo-sidebar {
         transition: max-width 200ms ease-in-out;
     }
     neo-sidebar:not(:hover) {
-        max-width: 5rem;
+        @apply max-w-20;
     }
     neo-topbar::part(content) {
-        gap: 1rem;
+        @apply gap-4;
     }
 }

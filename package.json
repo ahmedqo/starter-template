@@ -1,6 +1,10 @@
 {
+    "type": "module",
     "scripts": {
-        "css": "npx tailwindcss -i ./config.css -o ./public/css/index.min.css --watch --minify"
+        "style": "npx tailwindcss -i ./config.css -o ./public/css/index.min.css --watch --minify",
+        "neo": "npm --prefix ./public/js/neo run build",
+        "locale-js": "node locale-js",
+        "locale": "node locale"
     },
     "dependencies": {
         "tailwindcss": "^3.0.0"
