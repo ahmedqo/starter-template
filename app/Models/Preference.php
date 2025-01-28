@@ -21,6 +21,21 @@ class Preference extends Model
         'target_type',
     ];
 
+    protected static function booted()
+    {
+        self::saved(function ($Self) {
+            User::delCache(
+                ["auths/$Self->target_id"],
+            );
+        });
+
+        self::deleted(function ($Self) {
+            User::delCache(
+                ["auths/$Self->target_id"],
+            );
+        });
+    }
+
     public function Target(): MorphTo
     {
         return $this->morphTo(__FUNCTION__, 'target_type', 'target_id');

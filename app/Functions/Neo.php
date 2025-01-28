@@ -5,6 +5,7 @@ namespace App\Functions;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class Neo
@@ -27,7 +28,12 @@ class Neo
     public static function auth($prop = null)
     {
         if (!static::$Auth) {
-            static::$Auth = User::with('Preference')->where('id', Auth::id())->first();
+            $id = Auth::id();
+            // $cache = User::addCache("auths/$id", ["auths:$id", "preference:$id"]);
+
+            static::$Auth = // Cache::rememberForever($cache, function () use ($id) {
+                User::with('Preference')->where('id', $id)->first();
+            // });
         }
 
         return static::$Auth ? ($prop ? static::$Auth->{$prop} : static::$Auth) : false;

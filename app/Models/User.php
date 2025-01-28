@@ -2,23 +2,19 @@
 
 namespace App\Models;
 
-use App\Functions\Neo;
+use App\Traits\HasCache;
 use App\Traits\HasSearch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Cache;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasSearch;
+    use HasApiTokens, HasFactory, Notifiable, HasSearch, HasCache;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
         'first_name',
         'last_name',
@@ -42,11 +38,6 @@ class User extends Authenticatable
         'address',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
     ];
@@ -61,6 +52,20 @@ class User extends Authenticatable
                 'date_format' => 'YYYY-MM-DD',
                 'theme_color' => 'ocean tide',
             ]);
+        });
+
+        self::saved(function ($Self) {
+            self::delCache(
+                ["users/$Self->id", "auths/$Self->id"],
+                ['users']
+            );
+        });
+
+        self::deleted(function ($Self) {
+            self::delCache(
+                ["users/$Self->id", "auths/$Self->id"],
+                ['users']
+            );
         });
     }
 

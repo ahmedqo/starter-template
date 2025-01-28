@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Functions\Mail as Mailer;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
@@ -25,17 +26,29 @@ class UserController extends Controller
 
     public function patch_view($id)
     {
-        $data = User::findorfail($id);
+        $cache = User::addCache("users/$id", ["users:$id"]);
+
+        $data = Cache::rememberForever($cache, function () use ($id) {
+            return User::findorfail($id);
+        });
+
         return view('user.patch', compact('data'));
     }
 
     public function search_action(Request $Request)
     {
-        $data = User::orderBy('id', 'DESC');
-        if ($Request->search) {
-            $data = $data->search(urldecode($Request->search));
-        }
-        $data = $data->cursorPaginate(50);
+        $search = $Request->search ? "/search/$Request->search" : '';
+        $cursor = $Request->cursor ? "/cursor/$Request->cursor" : '';
+        $cache = User::addCache("users$search$cursor", ['users']);
+
+        $data = Cache::rememberForever($cache, function () use ($Request) {
+            $data = User::orderBy('id', 'DESC');
+            if ($Request->search) {
+                $data = $data->search(urldecode($Request->search));
+            }
+            return $data->cursorPaginate(50);
+        });
+
         return response()->json($data);
     }
 
@@ -55,7 +68,7 @@ class UserController extends Controller
             ]);
         }
 
-        $User = User::create($Request->merge([
+        User::create($Request->merge([
             'password' =>  Hash::make(Str::random(20)),
             'first_name' => strtolower($Request->first_name),
             'last_name' => strtolower($Request->last_name),
