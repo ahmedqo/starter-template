@@ -109,7 +109,6 @@ neo-datepicker,
 neo-timepicker,
 neo-autocomplete,
 neo-imagetransfer,
-neo-datavisualizer::part(wrapper),
 neo-datavisualizer::part(search-wrapper) {
     @apply rounded-x-thin;
 }
@@ -133,15 +132,16 @@ neo-autocomplete::part(item) {
 }
 
 neo-button {
-    @apply px-[.813rem];
+    @apply py-[.813rem];
 }
 
 neo-datavisualizer::part(topbar) {
-    @apply border border-x-shade m-0 my-3 mx-6;
+    @apply border-b-x-shade m-0 py-3 px-6 border-b;
+    border-bottom-style: solid;
 }
 
 neo-datavisualizer::part(wrapper) {
-    @apply border-none !rounded-none;
+    @apply border-none;
 }
 
 neo-datavisualizer::part(header) {
@@ -163,7 +163,7 @@ neo-datavisualizer::part(search-wrapper) {
 
 neo-datavisualizer::part(wrapper),
 neo-datavisualizer::part(table-body-row) {
-    @apply bg-x-shade;
+    @apply border-x-shade;
 }
 
 neo-datavisualizer::part(table-body-col) {
