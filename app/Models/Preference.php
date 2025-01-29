@@ -23,17 +23,13 @@ class Preference extends Model
 
     protected static function booted()
     {
-        self::saved(function ($Self) {
-            User::delCache(
-                ["auths/$Self->target_id"],
-            );
-        });
-
-        self::deleted(function ($Self) {
-            User::delCache(
-                ["auths/$Self->target_id"],
-            );
-        });
+        foreach (['saved', 'deleted'] as $event) {
+            self::{$event}(function ($Self) {
+                User::delCache(
+                    ["auths/$Self->target_id"],
+                );
+            });
+        }
     }
 
     public function Target(): MorphTo

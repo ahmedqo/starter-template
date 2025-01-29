@@ -54,19 +54,14 @@ class User extends Authenticatable
             ]);
         });
 
-        self::saved(function ($Self) {
-            self::delCache(
-                ["users/$Self->id", "auths/$Self->id"],
-                ['users']
-            );
-        });
-
-        self::deleted(function ($Self) {
-            self::delCache(
-                ["users/$Self->id", "auths/$Self->id"],
-                ['users']
-            );
-        });
+        foreach (['saved', 'deleted'] as $event) {
+            self::{$event}(function ($Self) {
+                self::delCache(
+                    ["users/$Self->id", "auths/$Self->id"],
+                    ['users']
+                );
+            });
+        }
     }
 
     public function Preference(): MorphOne
