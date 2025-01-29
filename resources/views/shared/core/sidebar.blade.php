@@ -1,8 +1,8 @@
 <neo-sidebar id="sidebar">
-    <neo-topbar align="start" style="height: 3.5rem" class="shadow-x-core">
+    <neo-topbar transparent align="start" style="height: 3.5rem" class="shadow-x-core">
         <img src="{{ Neo::logo() }}" alt="{{ env('APP_NAME') }} logo image"
-            class="block w-auto h-full pointer-events-auto" width="916" height="516" loading="lazy" />
-        <h1 class="header text-xl font-x-huge text-x-white">{{ strtoupper(__(env('APP_NAME'))) }}</h1>
+            class="logo block w-auto h-full pointer-events-auto" width="916" height="516" loading="lazy" />
+        <h1 class="header text-xl font-x-huge text-x-black">{{ strtoupper(__(env('APP_NAME'))) }}</h1>
     </neo-topbar>
     <ul class="nav-colors w-full flex flex-col flex-1 p-4">
         <li class="w-full mib-w-[240px] overflow-hidden">
@@ -17,7 +17,7 @@
                 </div>
             </a>
         </li>
-        <li class="my-2"></li>
+        <li class="my-2 w-full h-px bg-x-shade"></li>
         <li class="w-full mib-w-[240px] overflow-hidden">
             <a href="{{ route('views.users.index') }}"
                 class="w-full block overflow-hidden px-3 py-2 outline-none rounded-x-thin hover:text-x-white hover:bg-x-acent focus:text-x-white focus:bg-x-acent focus-within:text-x-white focus-within:bg-x-acent {{ Neo::matchRoute('users') ? 'bg-x-prime text-x-white' : 'text-x-black' }}">

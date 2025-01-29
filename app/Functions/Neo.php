@@ -50,7 +50,7 @@ class Neo
     public static function colors()
     {
         $colors = Neo::themesList(Neo::preference('theme_color'));
-        return ":root{--prime: $colors[0];--acent:$colors[1];}";
+        return "*,:root,*::before,*::after{--prime: $colors[0];--acent:$colors[1];}";
     }
 
     public static function getDates($period = null)

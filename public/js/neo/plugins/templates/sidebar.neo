@@ -18,7 +18,7 @@
             }
             100% { 
                 {$ each _media into @Theme.MEDIA $}
-                    {{ _media }}transform: translateX({{ @props.position === "end" ? document.documentElement.dir === "rtl" ? -20 : 20 : document.documentElement.dir === "rtl" ? 20 : -20 }}px);
+                    {{ _media }}transform: translateX({{ @props.side === "end" ? document.documentElement.dir === "rtl" ? -20 : 20 : document.documentElement.dir === "rtl" ? 20 : -20 }}px);
                 {$ endeach $}
             }
         }
@@ -36,7 +36,7 @@
         @{{ media }}keyframes slide-on {
             0% {
                 {$ each _media into @Theme.MEDIA $}
-                    {{ _media }}transform: translateX({{ @props.position === "end" ? document.documentElement.dir === "rtl" ? -20 : 20 : document.documentElement.dir === "rtl" ? 20 : -20 }}px);
+                    {{ _media }}transform: translateX({{ @props.side === "end" ? document.documentElement.dir === "rtl" ? -20 : 20 : document.documentElement.dir === "rtl" ? 20 : -20 }}px);
                 {$ endeach $}
             }
             100% { 
@@ -87,7 +87,7 @@
             pointer-events: none;
         {$ endif $}
         z-index: {{ @Theme.layer() }};
-        justify-content: {{ @props.position }};
+        justify-content: {{ @props.side }};
         background: {{ @Theme.colors("BLACK", 60) }};
         {$ if @state.init $}
             opacity: 0;
@@ -120,7 +120,7 @@
             {$ each _media into @Theme.MEDIA $}
                 {{ _media }}box-shadow: 0px 8px 8px -8px {{ @Theme.colors("BLACK", 20) }};
                 {$ if @state.init $}
-                    {{ _media }}transform: translateX({{ @props.position === "end" ? document.documentElement.dir === "rtl" ? -20 : 20 : document.documentElement.dir === "rtl" ? 20 : -20 }}px);
+                    {{ _media }}transform: translateX({{ @props.side === "end" ? document.documentElement.dir === "rtl" ? -20 : 20 : document.documentElement.dir === "rtl" ? 20 : -20 }}px);
                 {$ else $}
                     {{ _media }}animation: slide-{{ @props.expand ? "on" : "off" }} 200ms ease-in-out forwards;
                 {$ endif $}
@@ -167,10 +167,10 @@
 
 <script>
     export default {
-        attrs: ["position", "stick"],
+        attrs: ["side", "stick"],
         props: {
             expand: matchMedia("(min-width: 1024px)").matches,
-            position: "start",
+            side: "start",
             stick: false,
         },
         state: {
@@ -216,8 +216,8 @@
             updated(name, prev, next, type) {
                 Neo.Helper.option({
                     attrs: {
-                        "position": () => {
-                            this.props.position = next;
+                        "side": () => {
+                            this.props.side = next;
                         },
                         "stick": () => {
                             this.props.stick = Neo.Helper.truty(next) || this.hasAttribute("stick") && !["false", "null", "undefined"].includes(this.getAttribute("stick"));

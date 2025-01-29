@@ -86,9 +86,9 @@
         cycle: {
             created() {
                 Neo.Toaster = this;
-                this.toast = (content, theme, timer, position) => {
+                this.toast = (content, theme, timer, side) => {
                     const toast = document.createElement("neo-toast");
-                    toast.setProps({ timer: timer || 5000, theme: theme, position: position || "start" });
+                    toast.setProps({ timer: timer || 5000, theme: theme, side: side || "start" });
                     toast.innerHTML = `<div>${content}</div>`;
                     this.appendChild(toast);
                 };

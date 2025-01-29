@@ -85,7 +85,7 @@
         background: var(--{{ @props.theme || "x" }}, {{ @Theme.colors("BLACK") }});
         {$ each _media into @Theme.MEDIA $}
             {{ _media }}box-shadow: 0px 8px 8px -8px {{ @Theme.colors("BLACK", 20) }};
-            {{ _media }}animation: {{ "slide-" + (@state.position === "start" ? "down" : "up") + "-" + (@state.flip ? "off" : "on") }} 200ms ease-in-out forwards;
+            {{ _media }}animation: {{ "slide-" + (@state.side === "start" ? "down" : "up") + "-" + (@state.flip ? "off" : "on") }} 200ms ease-in-out forwards;
         {$ endeach $}
         
         --info: {{ @Theme.colors("BLUE", 500) }};
@@ -100,7 +100,7 @@
         display: block;
         fill: currentColor;
         pointer-events: none;
-        {$ if @props.position === "end" $}
+        {$ if @props.side === "end" $}
             margin-inline-start: auto;
         {$ endif $}
     }
@@ -117,13 +117,13 @@
 </style>
 
 <template name="neo-toast">
-    {$ if @props.position === "start" $}
+    {$ if @props.side === "start" $}
         <svg ref="icon" part="icon" fill="currentColor" viewBox="0 0 48 48">
              {{ @state.path[@props.theme] }}
         </svg>
     {$ endif $}
     <slot></slot>
-    {$ if @props.position === "end" $}
+    {$ if @props.side === "end" $}
         <svg ref="icon" part="icon" fill="currentColor" viewBox="0 0 48 48">
              {{ @state.path[@props.theme] }}
         </svg>
@@ -132,14 +132,14 @@
 
 <script>
     export default {
-        attrs: ["theme", "timer", "position"],
+        attrs: ["theme", "timer", "side"],
         props: {
             theme: "",
             timer: 5000,
-            position: "start",
+            side: "start",
         },
         state: {
-            position: "end",
+            side: "end",
             flip: false,
             path: {
                 info: '<path d="M21.5484 47.25L21.3984 39.65L20.9484 39.6C15.9314 39.0334 11.7523 36.8917 8.41094 33.175C5.06927 29.4584 3.39844 25.0834 3.39844 20.05C3.39844 14.6167 5.3086 10.0084 9.12894 6.22505C12.9493 2.44172 17.5784 0.550049 23.0164 0.550049C25.7188 0.550049 28.2536 1.06438 30.6209 2.09305C32.9879 3.12205 35.0593 4.52205 36.8349 6.29305C38.6106 8.06438 40.0151 10.1392 41.0484 12.5175C42.0818 14.8962 42.5984 17.4362 42.5984 20.1375C42.5984 23.2249 42.0318 26.1155 40.8984 28.8095C39.7651 31.5032 38.2401 33.9917 36.3234 36.275C34.4068 38.5584 32.1723 40.6124 29.6199 42.437C27.0673 44.262 24.3768 45.8664 21.5484 47.25ZM23.0209 31.8C23.8059 31.8 24.4651 31.5259 24.9984 30.9775C25.5318 30.4292 25.7984 29.7709 25.7984 29.0025C25.7984 28.2342 25.5306 27.575 24.9949 27.025C24.4593 26.475 23.7946 26.2 23.0009 26.2C22.2326 26.2 21.5734 26.4742 21.0234 27.0225C20.4734 27.5709 20.1984 28.2292 20.1984 28.9975C20.1984 29.7659 20.4726 30.425 21.0209 30.975C21.5693 31.525 22.2359 31.8 23.0209 31.8ZM20.7984 24.85H25.1484C25.1484 23.85 25.2818 23.0834 25.5484 22.55C25.8151 22.0167 26.3818 21.3167 27.2484 20.45C27.9151 19.7834 28.4568 19.0947 28.8734 18.384C29.2901 17.6734 29.4984 16.8454 29.4984 15.9C29.4984 13.9334 28.8984 12.4667 27.6984 11.5C26.4984 10.5334 24.9651 10.05 23.0984 10.05C21.4701 10.05 20.0548 10.575 18.8524 11.625C17.6498 12.675 16.8151 13.9334 16.3484 15.4L20.3904 16.95C20.5958 16.35 20.9068 15.75 21.3234 15.15C21.7401 14.55 22.2984 14.25 22.9984 14.25C23.6818 14.25 24.1943 14.4219 24.5359 14.7655C24.8776 15.1092 25.0484 15.5207 25.0484 16C25.0484 16.4464 24.8901 16.8662 24.5734 17.2595C24.2568 17.6532 23.9151 18.0334 23.5484 18.4C22.3151 19.5 21.5484 20.4177 21.2484 21.153C20.9484 21.8884 20.7984 23.1207 20.7984 24.85Z" />',
@@ -151,7 +151,7 @@
         cycle: {
             created() {
                 if (Neo.Toaster) {
-                    this.state.position = Neo.Toaster.props.vertical;
+                    this.state.side = Neo.Toaster.props.vertical;
                 }
             },
             mounted() {
@@ -165,7 +165,7 @@
             updated(name, prev, next, type) {
                 Neo.Helper.option({
                     attrs: {
-                        "theme,position": () => {
+                        "theme,side": () => {
                             this.props[name] = next;
                         },
                         "timer": () => {
@@ -173,7 +173,7 @@
                         }
                     },
                     props: {
-                        "theme,timer,position": () => {
+                        "theme,timer,side": () => {
                             this.emit("change:" + name, { 
                                 data: next 
                             });
