@@ -15,7 +15,12 @@ class Neo
 
     public static function logo()
     {
-        return asset('img/logo.png') . '?v=' . (env('APP_VERSION') ?? '0.0.1');
+        return static::asset('img/logo.png');
+    }
+
+    public static function asset($url)
+    {
+        return asset($url) . '?v=' . env('APP_VERSION', '0.0.1');
     }
 
     public static function locale($locale = null)
