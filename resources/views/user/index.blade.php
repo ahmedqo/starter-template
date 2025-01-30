@@ -29,5 +29,5 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ asset('js/user/index.min.js') }}?v={{ env('APP_VERSION') }}"></script>
+    <script src="{{ Neo::asset('js/user/index.min.js') }}"></script>
 @endsection

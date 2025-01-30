@@ -12,8 +12,8 @@
 
 <body close class="bg-x-light bg-x-gradient">
     <section id="neo-page-cover">
-        <img src="{{ asset('img/logo.webp') }}?v={{ env('APP_VERSION') }}" alt="{{ env('APP_NAME') }} logo image"
-            class="block w-36" width="916" height="516" loading="lazy" />
+        <img src="{{ Neo::logo() }}" alt="{{ env('APP_NAME') }} logo image" class="block w-36" width="916"
+            height="516" loading="lazy" />
     </section>
     <neo-wrapper class="isolate">
         <neo-topbar transparent align="space-between" class="w-full">
@@ -39,7 +39,7 @@
                             <li class="w-full">
                                 <a href="{{ route('actions.language.index', 'en') }}"
                                     class="w-full flex flex-wrap gap-2 px-4 py-2 items-center outline-none hover:text-x-white hover:bg-x-acent focus:text-x-white focus:bg-x-acent focus-within:text-x-white focus-within:bg-x-acent {{ Neo::locale($lang) ? 'bg-x-prime text-x-white' : 'text-x-black' }}">
-                                    <img src="{{ asset('lang/' . $lang . '.png') }}?v={{ env('APP_VERSION') }}"
+                                    <img src="{{ Neo::asset('lang/' . $lang . '.png') }}"
                                         alt=" {{ ucfirst(__($language)) }} flag" loading="lazy"
                                         class="block w-6 h-4 object-contain" />
                                     <span class="block flex-1 text-base text-start">

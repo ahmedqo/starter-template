@@ -18,9 +18,9 @@
                 'format' => Neo::formatsList(Neo::preference('date_format'), 0),
                 'currency' => Neo::preference('currency'),
             ]) }}">
-        <style>
+        {{-- <style>
             {{ Neo::colors() }}
-        </style>
+        </style> --}}
     @endif
 </head>
 

@@ -48,8 +48,8 @@
                         <neo-select-item value="{{ $lang }}"
                             {{ $lang == old('language', $data->language) ? 'active' : '' }}
                             class="flex flex-wrap gap-2 items-center">
-                            <img src="{{ asset('lang/' . $lang . '.png') }}?v={{ env('APP_VERSION') }}" alt="english flag"
-                                loading="lazy" class="block w-10 h-6 object-contain" />
+                            <img src="{{ Neo::asset('lang/' . $lang . '.png') }}" alt="english flag" loading="lazy"
+                                class="block w-10 h-6 object-contain" />
                             {{ ucfirst(__($language)) }}
                         </neo-select-item>
                     @endforeach

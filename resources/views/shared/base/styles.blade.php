@@ -1,2 +1,2 @@
-<link rel="stylesheet" href="{{ asset('css/font.min.css') }}?v={{ env('APP_VERSION') }}" media="print" onload="this.media='all';" />
-<link rel="stylesheet" href="{{ asset('css/index.min.css') }}?v={{ env('APP_VERSION') }}" />
+<link rel="stylesheet" href="{{ Neo::asset('css/font.min.css') }}" media="print" onload="this.media='all';" />
+<link rel="stylesheet" href="{{ Neo::asset('css/index.min.css') }}" />

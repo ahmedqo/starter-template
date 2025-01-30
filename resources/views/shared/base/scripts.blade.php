@@ -1,28 +1,28 @@
-<script src="{{ asset('js/neo/index.min.js') }}?v={{ env('APP_VERSION') }}"></script>
-<script src="{{ asset('js/trans.min.js') }}?v={{ env('APP_VERSION') }}"></script>
+<script src="{{ Neo::asset('js/neo/index.min.js') }}"></script>
+<script src="{{ Neo::asset('js/trans.min.js') }}"></script>
 
 @if ($type == 'admin')
-    <script src="{{ asset('js/neo/plugins/index.min.js') }}?v={{ env('APP_VERSION') }}"></script>
-    <script src="{{ asset('js/index.min.js') }}?v={{ env('APP_VERSION') }}"></script>
+    <script src="{{ Neo::asset('js/neo/plugins/index.min.js') }}"></script>
+    <script src="{{ Neo::asset('js/index.min.js') }}"></script>
     <script>
         Neo.load(function() {
             Neo.getComponent("neo-datavisualizer").globals = [
-                "{{ asset('css/print.min.css') }}?v={{ env('APP_VERSION') }}"
+                "{{ Neo::asset('css/print.min.css') }}"
             ];
         });
 
         Neo.load(function() {
             Neo.getComponent("neo-printer").globals = [
-                "{{ asset('css/index.min.css') }}?v={{ env('APP_VERSION') }}",
-                "{{ asset('css/app.min.css') }}?v={{ env('APP_VERSION') }}",
-                // "{{ asset('css/print.min.css') }}?v={{ env('APP_VERSION') }}"
+                "{{ Neo::asset('css/index.min.css') }}",
+                "{{ Neo::asset('css/app.min.css') }}",
+                // "{{ Neo::asset('css/print.min.css') }}"
             ];
         });
     </script>
 @endif
 
 @if ($type == 'guest')
-    <script src="{{ asset('js/neo/plugins/guest.min.js') }}?v={{ env('APP_VERSION') }}"></script>
+    <script src="{{ Neo::asset('js/neo/plugins/guest.min.js') }}"></script>
 @endif
 
 <script>
