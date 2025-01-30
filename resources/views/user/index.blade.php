@@ -1,7 +1,6 @@
 @extends('shared.core.base')
 @section('title', __('Users list'))
 
-
 @section('meta')
     <meta name="routes" content='{!! json_encode([
         'search' => route('actions.users.search'),
