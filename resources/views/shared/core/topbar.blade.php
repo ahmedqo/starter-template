@@ -1,4 +1,4 @@
-<neo-topbar align="space-between" class="shadow-x-core sticky top-0 z-[1]">
+<neo-topbar align="space-between" class="shadow-x-core sticky top-0 z-10">
     <div class="lg:flex-1 min-w-max flex flex-wrap gap-4 items-center">
         <button id="trigger" onclick="sidebar.toggle()"
             class="flex w-8 h-8 items-center justify-center text-x-white outline-none rounded-x-thin hover:bg-x-black/5 focus:bg-x-black/5 focus-within:bg-x-black/5">

@@ -33,7 +33,7 @@ class Neo
     {
         if (!static::$Auth) {
             $id = Auth::id();
-            $cache = User::addCache("auths/$id", ["auths:$id", "preference:$id"]);
+            $cache = User::addCache("auths/$id", ["auths:$id", "preferences:$id", 'auth', 'preference']);
 
             static::$Auth = Cache::rememberForever($cache, function () use ($id) {
                 return  User::with('Preference')->where('id', $id)->first();
@@ -269,5 +269,12 @@ class Neo
         ];
 
         return $color ? $colors[$color] : $colors;
+    }
+
+    public static function ref($Model, $column)
+    {
+        $lastRef = $Model::whereYear('created_at', now()->year)->latest('id')->value($column);
+        $num = ($lastRef ? (int) substr($lastRef, 4) : 0) + 1;
+        return now()->format('Y') . str_pad($num, 3, '0', STR_PAD_LEFT);
     }
 }

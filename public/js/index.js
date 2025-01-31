@@ -313,7 +313,17 @@ const $queryAll = (selector, context = document) => [
         return $data;
     })();
 
+
+
 Neo.load(function () {
+    const stepperBtns = ({stepper, btnPrev, btnNext, btnSave}) => {
+        btnPrev.style.display = stepper.current <= 0 ? "none" : "";
+        btnNext.style.display =
+            stepper.current < stepper.items.length - 1 ? "" : "none";
+        btnSave.style.display =
+            stepper.current === stepper.items.length - 1 ? "" : "none";
+    }
+
     $queryAll("neo-stepper").forEach((stepper) => {
         const btnPrev = $query("#prev", stepper),
             btnSave = $query("#save", stepper),
@@ -363,11 +373,7 @@ Neo.load(function () {
         });
 
         stepper.addEventListener("change:step", (e) => {
-            btnPrev.style.display = stepper.current <= 0 ? "none" : "";
-            btnNext.style.display =
-                stepper.current < stepper.items.length - 1 ? "" : "none";
-            btnSave.style.display =
-                stepper.current === stepper.items.length - 1 ? "" : "none";
+            stepperBtns({stepper, btnPrev, btnNext, btnSave});
         });
 
         btnPrev.addEventListener("click", (e) => {
@@ -377,6 +383,8 @@ Neo.load(function () {
         btnNext.addEventListener("click", (e) => {
             stepper.next();
         });
+
+        stepperBtns({stepper, btnPrev, btnNext, btnSave});
     });
 
     $queryAll("form[validate]").forEach((form) => {
@@ -422,42 +430,5 @@ Neo.load(function () {
                 },
             });
         });
-    });
-
-    $queryAll("[show-unless]").forEach((field) => {
-        const [target, value] = field
-            .getAttribute("show-unless")
-            .split(",")
-            .map((e) => e.trim())
-            .filter(Boolean),
-            targetField = $query("[name=" + target + "]");
-
-        function exec () {
-            if(targetField.value && targetField.value !== value)
-                field.style.display = "";
-            else field.style.display = "none";
-        }
-
-        targetField.addEventListener("change", exec);
-
-        exec();
-    });
-
-    $queryAll("[show-if]").forEach((field) => {
-        const [target, value] = field
-            .getAttribute("show-if")
-            .split(",")
-            .map((e) => e.trim())
-            .filter(Boolean),
-            targetField = $query("[name=" + target + "]");
-
-        function exec () {
-            if(targetField.value === value) field.style.display = "";
-            else field.style.display = "none";
-        }
-
-        targetField.addEventListener("change", exec);
-
-        exec();
     });
 });

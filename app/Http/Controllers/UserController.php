@@ -26,7 +26,7 @@ class UserController extends Controller
 
     public function patch_view($id)
     {
-        $cache = User::addCache("users/$id", ["users:$id"]);
+        $cache = User::addCache("users/$id", ["users:$id", 'user']);
 
         $data = Cache::rememberForever($cache, function () use ($id) {
             return User::findorfail($id);
