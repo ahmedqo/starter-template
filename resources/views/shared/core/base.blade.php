@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     @yield('meta')
-    @include('shared.base.styles', ['type' => 'admin'])
+    @include('shared.base.styles')
     @yield('styles')
     <title>@yield('title')</title>
     @if (Neo::preference())
@@ -18,9 +18,9 @@
                 'format' => Neo::formatsList(Neo::preference('date_format'), 0),
                 'currency' => Neo::preference('currency'),
             ]) }}">
-        {{-- <style>
+        <style>
             {{ Neo::colors() }}
-        </style> --}}
+        </style>
     @endif
 </head>
 

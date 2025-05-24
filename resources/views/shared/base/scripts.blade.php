@@ -15,7 +15,6 @@
             Neo.getComponent("neo-printer").globals = [
                 "{{ Neo::asset('css/index.min.css') }}",
                 "{{ Neo::asset('css/app.min.css') }}",
-                // "{{ Neo::asset('css/print.min.css') }}"
             ];
         });
     </script>

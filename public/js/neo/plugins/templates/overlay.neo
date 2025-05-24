@@ -90,6 +90,38 @@
     }
 
     {$ if @state.show $}
+        [part="close-trigger"] {
+            top: 1rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            border: unset;
+            outline: unset;
+            cursor: pointer;
+            position: absolute;
+            align-items: center;
+            pointer-events: auto;
+            justify-content: center;
+            background: transparent;
+            {{ document.documentElement.lang === "ar" ? "left" : "right" }}: 1rem;
+        }
+
+        [part="close-trigger"]:hover,
+        [part="close-trigger"]:focus,
+        [part="close-trigger"]:focus-within  {
+            outline-width: 2px;
+            outline-offset: -2px;
+            outline-style: solid;
+        }
+
+        [part="close-icon"] {
+            width: 1.5rem;
+            height: 1.5rem;
+            display: block;
+            pointer-events: none;
+            color: {{ @Theme.colors("WHITE") }};
+        }
+
         [part="content"] {
             width: 100%;
             display: flex;
@@ -143,6 +175,11 @@
 
 <template name="neo-overlay">
     {$ if @state.show $}
+        <button ref="close_trigger" part="close-trigger" type="button" @keydown:propagation="{{ () => {} }}" @click="{{ @rules.close }}">
+            <svg ref="close_icon" part="close-icon" fill="currentColor" viewBox="0 0 48 48">
+                <path d="M7.05 48L0 40.9082L16.875 24.0373L0 7.16641L7.05 0L24 16.8709L40.95 0L48 7.16641L31.125 24.0373L48 40.9082L40.95 48L24 31.1291L7.05 48Z" />
+            </svg>
+        </button>
         <div ref="content" part="content" @click:propagation="{{ () => {} }}">
             {$ if @truty(@props.label) $}
                 <label ref="label" part="label">{{ @props.label }}</label>
@@ -166,6 +203,9 @@
             init: true
         },
         rules: {
+            close() {
+                this.props.close = false;
+            },
             toggle() {
                 this.props.expand = !this.props.expand;
             },

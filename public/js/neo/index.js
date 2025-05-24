@@ -1254,9 +1254,14 @@ const Neo = (function Neo() {
     })();
 
     Neo.Validator = (function Validator() {
+        const now = function now() {
+            const d = new Date();
+            return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+        }
+
         const dates = function dates(value, parts, query) {
             const contentDate = new Date(value);
-            const compareDate = new Date(parts[0] === "today" ? (new Date()).toLocaleDateString() : (Validator.Rules.date(parts[0]) ? parts[0] : query(`[name="${parts[0]}"]`).value));
+            const compareDate = new Date(parts[0] === "today" ? now() : (Validator.Rules.date(parts[0]) ? parts[0] : query(`[name="${parts[0]}"]`).value));
             return [contentDate, compareDate];
         }
 

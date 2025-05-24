@@ -52,10 +52,10 @@ class Neo
         return static::$Preference ? ($prop ? static::$Preference->{$prop} : static::$Preference) : false;
     }
 
-    public static function colors()
+    public static function colors($print = false)
     {
         $colors = Neo::themesList(Neo::preference('theme_color'));
-        return "*,:root,*::before,*::after{--prime: $colors[0];--acent:$colors[1];}";
+        return $print ? "*,:root,*::before,*::after{--p-prime: $colors[0];--p-acent:$colors[1];}" : "*,:root,*::before,*::after{--prime: $colors[0];--acent:$colors[1];}";
     }
 
     public static function getDates($period = null)
