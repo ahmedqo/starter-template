@@ -13,9 +13,9 @@ class Neo
     public static $Preference;
     public static $Auth;
 
-    public static function logo()
+    public static function logo($png = false)
     {
-        return static::asset('img/logo.png');
+        return static::asset('img/logo.' . ($png ? "png" : "webp"));
     }
 
     public static function asset($url)
@@ -27,6 +27,20 @@ class Neo
     {
         $current = app()->getLocale();
         return $locale ? $current == $locale : $current;
+    }
+
+    public static function route($name, $parameters = [])
+    {
+        $locale = app()->getLocale();
+        return route(($locale !== 'fr' ? "$locale.$name" : $name), $parameters);
+    }
+
+    public static function merge(...$parts)
+    {
+        return url('/' . collect($parts)
+            ->map(fn ($part) => trim($part, '/'))
+            ->filter()
+            ->implode('/'));
     }
 
     public static function auth($prop = null)

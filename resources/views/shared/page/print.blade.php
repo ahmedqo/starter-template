@@ -1,7 +1,7 @@
-<img slot="top" id="backgroun-image" src="{{ Neo::logo() }}" />
+<img slot="top" id="backgroun-image" src="{{ Neo::logo(true) }}" />
 @if (Neo::preference())
     <style slot="styles" scoped>
-        {{ Neo::colors() }}
+        {{ Neo::colors(true) }}
     </style>
 @endif
 @include('shared.page.head')

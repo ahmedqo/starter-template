@@ -18,17 +18,17 @@
     <neo-wrapper class="isolate">
         <neo-topbar transparent align="end" class="fixed top-0 left-0 right-0 w-full pointer-events-none z-[1]">
             <neo-dropdown label="{{ __('Languages') }}" class="pointer-events-auto">
-                <button slot="trigger" aria-label="language_trigger"
-                    class="flex w-8 h-8 items-center justify-center text-x-white outline-none rounded-x-thin hover:bg-x-black/5 focus:bg-x-black/5 focus-within:bg-x-black/5 {{ !Neo::matchRoute('admin/forgot') ? 'lg:text-x-black' : '' }}">
-                    <svg class="block w-6 h-6 pointer-events-none" fill="currentcolor" viewBox="0 -960 960 960">
+                <button slot="trigger" aria-label="language_trigger" class="flex gap-4 items-center">
+                    <span>{{ ucfirst(__(Neo::languagesList()[Neo::locale()])) }}</span>
+                    <svg class="block w-4 h-4 pointer-events-none" fill="currentcolor" viewBox="0 -960 960 960">
                         <path
-                            d="M610-196 568.513-90.019Q566-78 555.452-71q-10.548 7-23.606 7Q510-64 499.5-80.963 489-97.927 497-118.094L654.571-537.15Q658-549 668-556.5q10-7.5 22-7.5h31.552q11.821 0 21.672 7T758-538l164 419q6 20.462-5.6 37.73Q904.799-64 884.273-64q-14.692 0-26.733-7.76t-15.536-22.576L808.585-196H610Zm22-72h148l-73.054-202H705l-73 202ZM355.135-397l-179.34 178.842Q162.86-206 146.206-206.5q-16.654-.5-27.93-11Q107-229 108-246.689q1-17.69 11.654-28.321L303-458q-39.6-45.818-70.8-92.409Q201-597 179-646h90q16 34 38.329 64.567 22.328 30.566 48.274 63.433Q403-567 434.628-619.861 466.256-672.721 489-730H63.857q-17.753 0-29.305-12.289Q23-754.579 23-771.982q0-17.404 12.35-29.318 12.35-11.914 29.895-11.914h248.731v-41.893q0-17.529 11.748-29.211Q337.471-896 355.098-896t29.637 11.682q12.011 11.682 12.011 29.211v41.893h249.548q17.685 0 29.696 11.768Q688-789.679 688-771.895q0 17.509-12.282 29.702Q663.436-730 645.759-730h-74.975Q548-656 510-587.5T416-457l102 103-29.389 83.933L355.135-397Z" />
+                            d="M480.84-28q-92.73 0-175.23-35.47-82.51-35.48-144.06-97Q100-222 64.5-304.74 29-387.48 29-480.24t35.47-175.21q35.48-82.45 97-144Q223-861 305.74-896.5q82.74-35.5 175.5-35.5t175.38 35.37q82.62 35.37 143.58 97.17 60.96 61.81 96.38 144.37Q932-572.52 932-479.76q0 92.76-35.29 175.21t-96.5 144Q739-99 656.1-63.5 573.21-28 480.84-28ZM441-166v-79q-32 0-55.44-23.23-23.43-23.23-23.43-55.85v-38.54L173-552q-3 17.47-5.5 34.95-2.5 17.47-2.5 35.39 0 120.33 78.5 211.49Q322-179 441-166Zm273-101q41-44 61.5-99.92T796-482q0-97.71-53-177.35Q690-739 600-773v14.33q0 32.43-23.76 55.55Q552.47-680 519.34-680H441v79.7q0 16.3-11.5 27.8T400.7-561H321v79h238.6q15.98 0 28.19 11.5T600-442.74V-323h38.21Q665-323 686-307.45q21 15.56 28 40.45Z" />
                     </svg>
                 </button>
                 <ul class="w-full flex flex-col">
                     @foreach (Neo::languagesList() as $lang => $language)
                         <li class="w-full">
-                            <a href="{{ route('actions.language.index', 'en') }}"
+                            <a href="{{ route('actions.language.index', $lang) }}"
                                 class="w-full flex flex-wrap gap-2 px-4 py-2 items-center outline-none hover:text-x-white hover:bg-x-acent focus:text-x-white focus:bg-x-acent focus-within:text-x-white focus-within:bg-x-acent {{ Neo::locale($lang) ? 'bg-x-prime text-x-white' : 'text-x-black' }}">
                                 <img src="{{ Neo::asset('lang/' . $lang . '.png') }}"
                                     alt=" {{ ucfirst(__($language)) }} flag" loading="lazy"
