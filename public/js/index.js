@@ -289,6 +289,7 @@ const $queryAll = (selector, context = document) => [
     $flip = (array) =>
         document.documentElement.dir === "rtl" ? array.reverse() : array,
     $zeros = (array) => array.some((e) => e !== 0),
+     $rtl = document.documentElement.dir === "rtl",
     $capitalize = Neo.Helper.Str.capitalize,
     $titlize = Neo.Helper.Str.titlize,
     $moment = Neo.Helper.Str.moment,
@@ -429,4 +430,12 @@ Neo.load(function () {
             });
         });
     });
+
+    const sidebar = $query("neo-sidebar");
+    if(sidebar) {
+        window.addEventListener('mousemove', (e) => {
+            if(($rtl ? window.innerWidth - e.clientX : e.clientX) < sidebar.clientWidth) sidebar.classList.remove('shrink');
+            if(($rtl ? window.innerWidth - e.clientX : e.clientX) > sidebar.clientWidth) sidebar.classList.add('shrink');
+        });
+    }
 });

@@ -97,7 +97,7 @@
         display: block;
     }
 
-    {$ if @truty(@props.header) || @props.print || @props.search || @props.filter || @props.download || @this.querySelector("[slot=tools-start]") || @this.querySelector("[slot=tools-end]") $}
+    {$ if @truty(@props.header) || @props.print || @props.search || @props.filter || @props.download || @this.querySelector("[slot=start]") || @this.querySelector("[slot=end]") $}
         [part="topbar"] {
             gap: .5rem;
             width: 100%;
@@ -248,7 +248,7 @@
         }
     {$ endif $}
 
-    {$ if @props.print || @props.search || @props.filter || @props.download || @this.querySelector("[slot=tools-start]") || @this.querySelector("[slot=tools-end]") $}
+    {$ if @props.print || @props.search || @props.filter || @props.download || @this.querySelector("[slot=start]") || @this.querySelector("[slot=end]") $}
         [part="tools"] {
             gap: .5rem;
             display: flex;
@@ -565,7 +565,7 @@
     }
     
     @media (min-width: 1024px) {
-        {$ if @truty(@props.header) || @props.print || @props.search || @props.filter || @props.download || @this.querySelector("[slot=tools-start]") || @this.querySelector("[slot=tools-end]") $}
+        {$ if @truty(@props.header) || @props.print || @props.search || @props.filter || @props.download || @this.querySelector("[slot=start]") || @this.querySelector("[slot=end]") $}
             [part="topbar"] {
                 gap: 1rem;
                 flex-direction: row;
@@ -581,7 +581,7 @@
             }
         {$ endif $}
 
-        {$ if @props.print || @props.search || @props.filter || @props.download || @this.querySelector("[slot=tools-start]") || @this.querySelector("[slot=tools-end]") $}
+        {$ if @props.print || @props.search || @props.filter || @props.download || @this.querySelector("[slot=start]") || @this.querySelector("[slot=end]") $}
             [part="tools"] {
                 margin-inline-end: 0;
                 margin-inline-start: auto;
@@ -630,7 +630,7 @@
 </style>
 
 <template name="neo-datavisualizer">
-    {$ if @truty(@props.header) || @props.print || @props.search || @props.filter || @props.download || @this.querySelector("[slot=tools-start]") || @this.querySelector("[slot=tools-end]") $}
+    {$ if @truty(@props.header) || @props.print || @props.search || @props.filter || @props.download || @this.querySelector("[slot=start]") || @this.querySelector("[slot=end]") $}
         <div ref="topbar" part="topbar">
             {$ if @props.search && @state.search $}
                 <div ref="searchwrapper" part="search-wrapper">
@@ -645,7 +645,7 @@
             {$ elif @truty(@props.header) $}
                 <h1 ref="header" part="header">{{ @props.header }}</h1>
             {$ endif $}
-            {$ if @props.print || @props.search || @props.filter || @props.download || @this.querySelector("[slot=tools-start]") || @this.querySelector("[slot=tools-end]") $}
+            {$ if @props.print || @props.search || @props.filter || @props.download || @this.querySelector("[slot=start]") || @this.querySelector("[slot=end]") $}
                 <div ref="tools" part="tools">
                     <slot name="start"></slot>
                     {$ if @props.search $}
