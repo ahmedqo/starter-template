@@ -134,7 +134,7 @@
             <li
                 class="flex flex-col col-span-2 lg:col-span-3 lg:row-span-2 lg:row-start-1 lg:col-start-1 relative bg-x-white rounded-x-thin shadow-x-core">
                 <div
-                    class="donut-loader w-full h-full rounded-x-thin bg-x-white absolute inset-0 flex items-center justify-center z-10">
+                    class="donut-loader w-full h-full rounded-x-thin bg-x-white absolute inset-0 flex items-center justify-center z-[1]">
                     <neo-loader></neo-loader>
                 </div>
                 <div class="py-3 px-6 border-b border-x-shade lg:hidden">

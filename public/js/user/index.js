@@ -1,5 +1,5 @@
 TableVisualizer({
-    dataVisualizer: $query("neo-datavisualizer"),
+    dataVisualizer: $dom("neo-datavisualizer"),
     colMapper: (props) => {
         return [{
             name: "full_name",

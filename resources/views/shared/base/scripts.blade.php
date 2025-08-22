@@ -1,5 +1,6 @@
 <script src="{{ Neo::asset('js/neo/index.min.js') }}"></script>
 <script src="{{ Neo::asset('js/trans.min.js') }}"></script>
+<script src="{{ Neo::asset('js/dom.min.js') }}"></script>
 
 @if ($type == 'admin')
     <script src="{{ Neo::asset('js/neo/plugins/index.min.js') }}"></script>
